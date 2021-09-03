@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ChangeEvent, useState } from "react";
+import TodoCompletedListView from "./components/TodoCompletedListView";
+import { TodoListView } from "./components/TodoList";
+import { useStore } from "./stores/useStore";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    const store = useStore(null);
+    const [newTodoTitle, setNewTodoTitle] = useState("");
+    const handleChange = (event: ChangeEvent<any>) => {
+        setNewTodoTitle(event.target.value);
+    };
+    const handleAddNewTodo=()=>{
+        store.todoStore.addTodo(newTodoTitle)
+    }
+    return (
+        <div
+            style={{
+                display: "flex",
+                width: "100%",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent:'center',
+                padding:10,
+                margin:"0 auto",
+                marginTop:10,
+            }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+            <div>
+                <input value={newTodoTitle} onChange={handleChange} />
+                <button onClick={handleAddNewTodo}>Add</button>
+            </div>
+            <TodoListView todoStore={store.todoStore} />
+            <span style={{display:'block',borderTop:"1px solid gray"}}/>
+            <TodoCompletedListView todoStore={store.todoStore}/>
+        </div>
+    );
 }
 
 export default App;
