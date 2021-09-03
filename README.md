@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+使用 Mobx+ React + Typescript 的项目模版
+
 ## Available Scripts
 
 In the project directory, you can run:
