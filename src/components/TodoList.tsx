@@ -1,5 +1,5 @@
-import { inject, observer } from "mobx-react";
-import { Key, useContext } from "react";
+import List from "@material-ui/core/List/List";
+import {observer } from "mobx-react";
 import { Todo } from "../models/TodoModel";
 import { TodoStore } from "../stores/TodoStore";
 
@@ -12,10 +12,12 @@ export interface TodoListViewProps {
 export const TodoListView = observer((props: TodoListViewProps) => {
     const { todoStore } = props;
     return (
-        <ul style={{ listStyle: "none", marginLeft: "0" }}>
+        <List
+            sx={{ width: "100%",bgcolor: "background.paper" }}
+        >
             {todoStore.todos.map((todo: Todo) => (
                 <TodoView key={todo.id} todo={todo} />
             ))}
-        </ul>
+        </List>
     );
 });

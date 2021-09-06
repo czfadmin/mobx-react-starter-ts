@@ -1,21 +1,31 @@
+import Checkbox from "@material-ui/core/Checkbox/Checkbox";
+import IconButton from "@material-ui/core/IconButton/IconButton";
+import ListItem from "@material-ui/core/ListItem/ListItem";
+import ListItemButton from "@material-ui/core/ListItemButton/ListItemButton";
+import ListItemIcon from "@material-ui/core/ListItemIcon/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import { observer } from "mobx-react";
 import { Todo } from "../models/TodoModel";
 
-export const TodoView = observer(({ todo }: { todo: Todo }) => (
-    <li
-        style={{
-            padding: "1em",
-            margin: ".25em",
-            border: "1px solid gray",
-            width: "100%",
-            borderRadius: 4,
-        }}
-    >
-        <input
-            type="checkbox"
-            checked={todo.finished}
-            onChange={() => todo.toggle()}
-        />
-        {todo.title}
-    </li>
-));
+export const TodoView = observer(({ todo }: { todo: Todo }) => {
+    const handleToggle = () => todo.toggle();
+    return (
+        <ListItem disablePadding>
+            <ListItemButton role={undefined} onClick={handleToggle} dense>
+                <ListItemIcon>
+                    <Checkbox
+                        edge="start"
+                        checked={todo.finished}
+                        tabIndex={-1}
+                        disableRipple
+                        inputProps={{ "aria-labelledby": `${todo.finished}` }}
+                    />
+                </ListItemIcon>
+                <ListItemText
+                    id={`${todo.id}`}
+                    primary={`${todo.id}-${todo.title}`}
+                />
+            </ListItemButton>
+        </ListItem>
+    );
+});
